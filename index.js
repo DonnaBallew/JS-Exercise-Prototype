@@ -95,16 +95,47 @@ Car.prototype.drive = function (distance) {
     - Besides the methods on Person.prototype, babies have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby() {}
+function Baby(name, age, favoriteToy) {
+  Person.call(this, name, age, favoriteToy);
+  this.favoriteToy = favoriteToy;
+}
+
+Baby.prototype = Object.create(Person.prototype);
+
+Baby.prototype.play = function () {
+  return `Playing with ${this.favoriteToy}.`;
+};
 
 /* 
   TASK 4
 
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+  One of the first things to ask is where is 'this' function invoked.  You have to look at
+  when it was invoked because you won't understand what 'this' keyword is until it's invoked.
+
+  1. Implicit Binding - the most common rule; when a function is invoked, look left of the dot,
+
+  2. Explicit Binding - uses .call or .apply methods.  You can force a function call to use a
+      particular object for 'this' binding, without putting a property function reference on
+      the object.  So, we EXPLICITLY say to a function what object it should use of 'this'.
+
+  3. new Binding - is a type of Explicit Binding and is used when you need to make similar objects, 
+      but not the same (it's an object creator).  Also, the Constructor function (always upper case) 
+      'this' refers to the specific instance of the object that is created and returned by the 
+      constructor function.  When we call the function we have to use the 'new' keyword.
+      For example:  when the code new Foo(...) is executed, the following things happen:
+      a. An empty object is created and referenced by 'this' varibale, inheriting the prototype of
+        the function.
+      b. Properties and methods are added to the object referenenced by 'this'.
+      c. The newly created object referenced by 'this' is returned at the end IMPLICITLY (if no 
+        other object is returned explicitly).
+
+  4. window Binding - also known as Global Object Binding.  Window binding occurs when, in the
+      global scope, the value of "this" will be the window/console object.  DO NOT console.log(this) at the 
+      global scope.  It will just return the window so, AVOID IT!
+
+  Priority from highest to lowest:
+  new Binding, Explicit Binding, Implicit Binding, window/Global Binding (aka Default)
 */
 
 ///////// END OF CHALLENGE /////////
