@@ -84,9 +84,29 @@ Car.prototype.fill = function (gallons) {
 };
 
 Car.prototype.drive = function (distance) {
-  this.odometer += distance;
-  this.tank -= distance / this.milesPerGallon;
+  let totalDistance = this.tank * this.milesPerGallon;
+  if (distance < totalDistance) {
+    this.odometer += distance;
+  } else {
+    this.odometer += totalDistance;
+  }
+  this.tank -= Math.round(distance / this.milesPerGallon);
+  if (this.tank === 0) {
+    return `I ran out of fuel at ${this.odometer} miles!`;
+  }
 };
+
+// Rbaba Babaci & Sebastian Garces solution - cohort13; Reviewed by Pace in GP
+/*let maxDistance = this.tank * this.milesPerGallon;
+  distance <= maxDistance
+    ? (this.odometer += distance)
+    : (this.odometer += maxDistance);
+  this.tank -= Math.floor(distance / this.milesPerGallon);
+  if (this.tank === 0) {
+    return `I ran out of fuel at ${this.odometer} miles!`;
+  }
+};
+*/
 
 /*
   TASK 3
